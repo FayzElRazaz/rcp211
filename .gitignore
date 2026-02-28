@@ -1,0 +1,50 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# fichiers compilés
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Environnements virtuels
+# =========================
+venv/
+.venv/
+env/
+ENV/
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+
+# =========================
+# fichiers système
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# logs & données temporaires
+# =========================
+*.log
+*.tmp
+*.swp
+
+# =========================
+# Variables d'environnement
+# =========================
+.env

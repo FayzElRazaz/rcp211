@@ -1,4 +1,8 @@
-\documentclass{article}
+\documentclass[12pt]{article}
+\usepackage[a4paper, margin=2cm]{geometry}
+
+% \documentclass[11pt,twocolumn]{article}
+% \usepackage[a4paper, margin=1.8cm]{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -18,7 +22,6 @@
 \begin{document}
 
 \maketitle
-
 
 \section{Introduction}
 
@@ -259,8 +262,82 @@ r_\theta(s,a)
 
 capable d’attribuer des récompenses élevées aux comportements proches des démonstrations expertes et des récompenses plus faibles aux comportements non experts.
 
+\section{Modélisation de la fonction de récompense}
 
+Nous disposons désormais d’un ensemble de démonstrations expertes construites à partir d’un agent PPO préalablement entraîné sur l’environnement \texttt{CartPole}. Ces démonstrations constituent la base de travail permettant d’aborder le véritable problème de l’Inverse Reinforcement Learning : apprendre une fonction de récompense cohérente avec le comportement observé.
 
+L’objectif n’est plus ici d’apprendre directement une politique, mais de construire une fonction :
+\[
+r_\theta(s,a)
+\]
+
+capable d’attribuer des récompenses élevées aux comportements proches de ceux de l’expert et des récompenses plus faibles aux comportements non experts.
+
+Autrement dit, nous cherchons à reconstruire implicitement ce qui semble être valorisé par l’expert à travers les trajectoires observées. Une fois cette récompense apprise, elle pourra ensuite être utilisée comme signal d’apprentissage pour entraîner un nouvel agent par Reinforcement Learning classique.
+
+Cette étape constitue le cœur du projet, car elle correspond au passage :
+\begin{center}
+comportement expert \(\rightarrow\) fonction de récompense
+\end{center}
+
+alors qu’en Reinforcement Learning classique, le problème est généralement :
+\begin{center}
+fonction de récompense \(\rightarrow\) politique optimale.
+\end{center}
+
+\subsection{Principe général}
+
+Le principe retenu dans ce projet consiste à entraîner un modèle paramétrique capable de différencier :
+\begin{itemize}
+    \item les états provenant des démonstrations expertes ;
+    \item les états provenant de comportements non experts.
+\end{itemize}
+
+L’idée est que si un état apparaît fréquemment dans les trajectoires expertes, alors cet état doit probablement être considéré comme désirable par la fonction de récompense recherchée.
+
+Le modèle appris attribuera donc progressivement :
+\begin{itemize}
+    \item des scores élevés aux états experts ;
+    \item des scores plus faibles aux états aléatoires ou sous-optimaux.
+\end{itemize}
+
+Dans une étape ultérieure, cette fonction de récompense sera utilisée comme signal d’apprentissage dans un nouvel entraînement par Reinforcement Learning afin d’évaluer si elle permet effectivement de reconstruire un comportement proche de celui de l’expert initial.
+
+\subsection{Difficulté de la modélisation}
+
+L’apprentissage d’une fonction de récompense constitue cependant un problème difficile. Contrairement à un problème supervisé classique, il n’existe pas nécessairement une unique récompense expliquant le comportement observé.
+
+Dans le cas de \texttt{CartPole}, plusieurs formulations peuvent conduire à un comportement performant :
+\begin{itemize}
+    \item maintenir le pendule proche de la verticale ;
+    \item limiter les vitesses angulaires ;
+    \item éviter les états de chute ;
+    \item maximiser simplement la durée de survie de l’épisode.
+\end{itemize}
+
+Toutes ces récompenses peuvent potentiellement produire des politiques proches. Le problème est donc sous-déterminé : plusieurs fonctions de récompense différentes peuvent expliquer les mêmes démonstrations expertes.
+
+Pour cette raison, l’objectif n’est pas nécessairement de retrouver exactement la récompense native de l’environnement, mais plutôt de construire une récompense permettant de reproduire un comportement similaire à celui de l’expert.
+
+\subsection{Modèles étudiés}
+
+Afin d’étudier l’impact de la modélisation de la récompense sur les performances finales, plusieurs approches seront testées et comparées.
+
+Nous commencerons par des modèles simples et interprétables, avant d’utiliser des modèles plus expressifs :
+\begin{itemize}
+    \item une récompense linéaire ;
+    \item une récompense quadratique inspirée des propriétés physiques du problème ;
+    \item une récompense basée sur un réseau de neurones.
+\end{itemize}
+
+Cette progression permettra :
+\begin{itemize}
+    \item d’étudier la capacité de chaque modèle à capturer les comportements experts ;
+    \item d’observer les limites des modèles simples ;
+    \item d’évaluer l’intérêt des représentations plus complexes.
+\end{itemize}
+
+Les différentes récompenses apprises seront ensuite utilisées pour entraîner de nouveaux agents, dont les performances seront comparées à celles de l’expert initial.
 
 
 \bibliographystyle{plain}

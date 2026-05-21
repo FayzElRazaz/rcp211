@@ -1,0 +1,272 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage[french]{babel}
+
+\title{RCP211 - Projet d'Inverse Reinforcement Learning}
+\author{Fayz El Razaz}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+\section{Introduction}
+
+L’apprentissage par renforcement (\textit{Reinforcement Learning}, RL) est un domaine de l’intelligence artificielle dans lequel un agent apprend à interagir avec un environnement afin de maximiser une récompense cumulative \cite{sutton2018reinforcement}. À chaque instant, l’agent observe un état de l’environnement, choisit une action, puis reçoit une récompense indiquant la qualité de cette action relativement à l’objectif recherché. Progressivement, l’agent apprend une politique de décision lui permettant d’adopter un comportement performant.
+
+Cette approche a permis d’obtenir des résultats remarquables dans de nombreux domaines tels que les jeux, la robotique ou encore l’optimisation de processus complexes. Les avancées récentes du \textit{Deep Reinforcement Learning} ont notamment permis d’atteindre des performances proches, voire supérieures, à celles de l’humain dans certains environnements complexes \cite{mnih2015human, silver2016mastering}. Toutefois, une difficulté majeure du RL réside dans la définition de la fonction de récompense. Dans de nombreux problèmes réels, il est difficile de formaliser explicitement ce qu’est un « bon » comportement. Une récompense mal définie peut conduire l’agent à adopter des stratégies inattendues ou inefficaces.
+
+L’\textit{Inverse Reinforcement Learning} (IRL), également appelé apprentissage inverse par renforcement, propose une approche différente de ce problème \cite{ng2000algorithms, abbeel2004apprenticeship}. Plutôt que de définir manuellement une fonction de récompense, l’idée est d’observer un comportement expert et d’en déduire la récompense implicite qui semble motiver ce comportement. L’objectif n’est donc plus directement d’apprendre une politique optimale, mais d’apprendre une fonction de récompense cohérente avec les démonstrations observées.
+
+Dans un cadre réel, ces démonstrations peuvent être fournies par un humain réalisant une tâche considérée comme optimale ou experte. Par exemple, dans un contexte robotique, un humain peut guider un bras robotisé afin de montrer le comportement attendu. L’algorithme d’IRL cherche alors à extraire les caractéristiques implicites de ce comportement afin de reconstruire une fonction de récompense permettant ensuite à un agent d’apprendre de manière autonome.
+
+Parmi les approches majeures de l’IRL, les méthodes basées sur le principe de maximum d’entropie occupent une place importante \cite{ziebart2008maximum, ziebart2010modeling}. Ces méthodes considèrent que les démonstrations expertes correspondent à des trajectoires plus susceptibles d’apparaître car elles minimisent implicitement un coût ou maximisent une récompense inconnue. Plus récemment, Finn, Levine et Abbeel ont proposé une extension profonde de cette approche à travers le papier \textit{Guided Cost Learning: Deep Inverse Optimal Control via Policy Optimization} \cite{finn2016guided}, permettant d’apprendre des fonctions de coût complexes à l’aide de réseaux de neurones.
+
+Dans le cadre de ce projet, nous nous intéressons à une version simplifiée de ce problème en utilisant l’environnement \texttt{CartPole} de la bibliothèque Gymnasium \cite{gymnasium}. Afin de nous concentrer sur les mécanismes fondamentaux de l’IRL sans introduire la complexité d’un système physique réel, les démonstrations expertes ne seront pas produites par un humain mais par un agent préalablement entraîné à résoudre la tâche de manière performante. Cet agent jouera ainsi le rôle d’un expert dont nous chercherons à reproduire implicitement les objectifs à travers l’apprentissage d’une fonction de récompense.
+
+Bien que notre implémentation soit volontairement simplifiée, les principes fondamentaux étudiés dans le travail de Finn et al. \cite{finn2016guided} demeurent les mêmes :
+\begin{itemize}
+    \item observer un comportement expert ;
+    \item apprendre une récompense cohérente avec ce comportement ;
+    \item puis réentraîner un agent à partir de cette récompense apprise.
+\end{itemize}
+
+L’objectif du projet est donc double :
+\begin{itemize}
+    \item comprendre les mécanismes théoriques de l’Inverse Reinforcement Learning ;
+    \item mettre en œuvre une chaîne complète d’apprentissage de récompense sur un environnement simple et contrôlé.
+\end{itemize}
+
+
+
+\section{Démarche proposée et environnement d’étude}
+
+\subsection{Choix méthodologique}
+
+L’objectif principal de ce projet est de comprendre les mécanismes fondamentaux de l’Inverse Reinforcement Learning dans un cadre suffisamment simple pour permettre une analyse détaillée des différentes étapes de l’apprentissage. Le papier de Finn, Levine et Abbeel propose une approche très avancée appliquée à des systèmes robotiques continus de grande dimension, utilisant des réseaux de neurones profonds et des techniques complexes d’optimisation de politiques. Reprendre l’intégralité de cette architecture dépasserait largement le cadre du projet et introduirait une complexité importante rendant l’analyse pédagogique plus difficile.
+
+Nous avons donc choisi d’adopter une approche simplifiée reposant sur l’environnement \texttt{CartPole} de la bibliothèque Gymnasium. Ce choix permet de conserver les concepts centraux de l’IRL tout en travaillant dans un environnement :
+\begin{itemize}
+    \item simple à visualiser ;
+    \item rapide à entraîner ;
+    \item suffisamment riche pour illustrer les mécanismes de l’apprentissage ;
+    \item largement utilisé comme environnement de référence en apprentissage par renforcement.
+\end{itemize}
+
+L’objectif n’est donc pas ici de reproduire toute la complexité du papier étudié, mais plutôt d’en comprendre les principes fondamentaux à travers une implémentation simplifiée et contrôlée.
+
+\subsection{Principe général de la démarche}
+
+Dans un problème classique d’apprentissage par renforcement, la fonction de récompense est connue. L’agent interagit avec l’environnement et apprend progressivement une politique lui permettant de maximiser cette récompense.
+
+Dans le cadre de l’Inverse Reinforcement Learning, la situation est inversée :
+\begin{itemize}
+    \item nous observons un comportement expert ;
+    \item mais la fonction de récompense qui motive ce comportement est inconnue.
+\end{itemize}
+
+L’objectif devient alors d’apprendre une fonction de récompense cohérente avec les démonstrations observées.
+
+Dans un contexte réel, ces démonstrations seraient généralement fournies par un humain expert réalisant la tâche considérée comme optimale. Par exemple, dans un contexte robotique, un opérateur humain pourrait guider un robot afin de lui montrer le comportement attendu. L’algorithme chercherait ensuite à extraire les caractéristiques implicites de ce comportement afin de reconstruire une fonction de récompense adaptée.
+
+Dans le cadre de ce projet, nous remplaçons cet expert humain par un agent déjà entraîné à résoudre efficacement la tâche. Cette simplification permet de disposer de démonstrations expertes cohérentes et reproductibles tout en conservant exactement la logique théorique de l’IRL.
+
+La démarche générale du projet peut ainsi être résumée en plusieurs étapes :
+\begin{enumerate}
+    \item entraîner un agent expert sur l’environnement \texttt{CartPole} à l’aide d’un algorithme classique de Reinforcement Learning ;
+    \item générer plusieurs démonstrations expertes à partir de cet agent ;
+    \item utiliser ces démonstrations pour apprendre une fonction de récompense ;
+    \item réentraîner un nouvel agent en utilisant uniquement la récompense apprise ;
+    \item comparer le comportement obtenu avec celui de l’expert initial.
+\end{enumerate}
+
+Cette approche permet d’évaluer si la récompense apprise capture correctement les caractéristiques importantes du comportement expert.
+
+\subsection{Présentation de l’environnement CartPole}
+
+L’environnement \texttt{CartPole} est un problème classique d’apprentissage par renforcement dans lequel un agent doit maintenir un mât vertical en contrôlant un chariot mobile.
+
+Le système est constitué :
+\begin{itemize}
+    \item d’un chariot pouvant se déplacer horizontalement ;
+    \item d’un pendule fixé sur ce chariot ;
+    \item d’un agent pouvant appliquer une force vers la gauche ou vers la droite.
+\end{itemize}
+
+L’objectif est de maintenir le pendule en équilibre le plus longtemps possible sans que :
+\begin{itemize}
+    \item l’angle du mât ne dépasse une certaine limite ;
+    \item ou que le chariot ne sorte de la zone autorisée.
+\end{itemize}
+
+À chaque instant, l’environnement fournit un état composé de quatre variables :
+\[
+s_t = (x,\dot{x},\theta,\dot{\theta})
+\]
+
+où :
+\begin{itemize}
+    \item \(x\) représente la position horizontale du chariot ;
+    \item \(\dot{x}\) représente la vitesse du chariot ;
+    \item \(\theta\) représente l’angle du pendule ;
+    \item \(\dot{\theta}\) représente la vitesse angulaire du pendule.
+\end{itemize}
+
+L’espace d’action est discret :
+\[
+a_t \in \{0,1\}
+\]
+
+avec :
+\begin{itemize}
+    \item \(0\) : pousser le chariot vers la gauche ;
+    \item \(1\) : pousser le chariot vers la droite.
+\end{itemize}
+
+Une trajectoire complète correspond alors à une succession d’états et d’actions :
+\[
+\tau = (s_0,a_0,s_1,a_1,\dots,s_T)
+\]
+
+Dans le cadre de l’IRL, ces trajectoires expertes constituent les données principales utilisées pour apprendre une fonction de récompense.
+
+\subsection{Nature des démonstrations expertes}
+
+Les démonstrations expertes correspondent aux trajectoires produites par l’agent préalablement entraîné. Chaque démonstration contient l’ensemble des transitions observées au cours d’un épisode :
+\[
+(s_t,a_t,s_{t+1})
+\]
+
+ou, de manière plus complète :
+\[
+(s_t,a_t,r_t,s_{t+1},done_t)
+\]
+
+Même si la récompense réelle de l’environnement n’est pas utilisée directement pour l’apprentissage inverse, elle peut être conservée à des fins d’analyse ou de validation.
+
+L’idée fondamentale est que l’algorithme d’IRL ne cherche pas à mémoriser directement les actions de l’expert, mais à comprendre quelles caractéristiques des états semblent implicitement valorisées par ce comportement.
+
+Autrement dit, l’objectif n’est pas d’apprendre :
+\begin{center}
+« dans cet état, il faut aller à gauche »
+\end{center}
+
+mais plutôt :
+\begin{center}
+« certains états semblent meilleurs que d’autres selon les démonstrations observées »
+\end{center}
+
+Cette distinction constitue l’un des éléments centraux de l’Inverse Reinforcement Learning.
+
+\section{Construction des démonstrations expertes}
+
+\subsection{Objectif}
+
+Avant de pouvoir apprendre une fonction de récompense par Inverse Reinforcement Learning, il est nécessaire de disposer de démonstrations expertes. Ces démonstrations constituent les exemples de comportements considérés comme performants à partir desquels l’algorithme tentera d’inférer une récompense implicite.
+
+Dans un contexte réel, ces démonstrations pourraient être produites par un humain expert réalisant correctement une tâche donnée. Cependant, afin de simplifier l’expérimentation et de garantir des comportements cohérents et reproductibles, nous utilisons ici un agent préalablement entraîné sur l’environnement \texttt{CartPole}. Cet agent jouera le rôle de l’expert dont nous chercherons à reproduire implicitement les objectifs.
+
+\subsection{Entraînement d’un agent expert}
+
+Pour produire ces démonstrations, nous avons utilisé l’algorithme \textit{Proximal Policy Optimization} (PPO), implémenté dans la bibliothèque \texttt{Stable-Baselines3}. PPO est un algorithme moderne d’apprentissage par renforcement particulièrement utilisé pour sa stabilité et ses bonnes performances dans des environnements variés.
+
+Le principe général de PPO est d’apprendre progressivement une politique :
+\[
+\pi(a|s)
+\]
+
+associant à chaque état \(s\) une action \(a\). Dans le cas de \texttt{CartPole}, l’agent apprend progressivement à choisir les actions permettant de maintenir le pendule en équilibre le plus longtemps possible.
+
+L’entraînement est réalisé directement sur la récompense native de l’environnement \texttt{CartPole-v1}. Une fois l’apprentissage terminé, l’agent atteint des scores élevés proches de la performance maximale autorisée par l’environnement.
+
+Cet agent entraîné constitue alors notre expert.
+
+\subsection{Génération des démonstrations}
+
+Une fois l’agent expert obtenu, plusieurs épisodes sont générés afin de construire un ensemble de trajectoires expertes.
+
+Chaque épisode correspond à une trajectoire :
+\[
+\tau = (s_0,a_0,s_1,a_1,\dots,s_T)
+\]
+
+où :
+\begin{itemize}
+    \item \(s_t\) représente l’état observé à l’instant \(t\) ;
+    \item \(a_t\) représente l’action choisie par l’expert ;
+    \item \(T\) représente la fin de l’épisode.
+\end{itemize}
+
+Dans notre implémentation, chaque transition enregistrée contient :
+\[
+(s_t,a_t,r_t,s_{t+1},done_t)
+\]
+
+avec :
+\begin{itemize}
+    \item \(s_t\) : état courant ;
+    \item \(a_t\) : action réalisée ;
+    \item \(r_t\) : récompense native de l’environnement ;
+    \item \(s_{t+1}\) : état suivant ;
+    \item \(done_t\) : indicateur de fin d’épisode.
+\end{itemize}
+
+Même si la récompense réelle de l’environnement n’est pas utilisée directement lors de l’apprentissage inverse, elle est conservée afin de faciliter certaines phases d’analyse et de validation expérimentale.
+
+\subsection{Filtrage des trajectoires expertes}
+
+Toutes les trajectoires produites par l’agent ne sont pas nécessairement conservées. En effet, l’Inverse Reinforcement Learning repose sur l’hypothèse que les démonstrations correspondent à des comportements optimaux ou quasi-optimaux.
+
+Pour cette raison, seules les trajectoires atteignant un score minimal fixé expérimentalement sont conservées dans le dataset final. Dans le cadre de \texttt{CartPole}, nous choisissons de ne garder que les épisodes atteignant un score supérieur ou égal à 450.
+
+Ce filtrage permet :
+\begin{itemize}
+    \item d’éviter l’introduction de comportements sous-optimaux ;
+    \item de réduire l’ambiguïté lors de l’apprentissage de la récompense ;
+    \item de fournir un ensemble cohérent de démonstrations expertes.
+\end{itemize}
+
+Les trajectoires retenues constituent alors la base de données utilisée dans les étapes suivantes du projet pour apprendre différentes fonctions de récompense.
+
+\subsection{Construction du dataset final}
+
+Les trajectoires expertes retenues sont finalement regroupées dans un dataset contenant l’ensemble des transitions observées lors des épisodes experts.
+
+Ce dataset contient notamment :
+\begin{itemize}
+    \item les états ;
+    \item les actions ;
+    \item les états suivants ;
+    \item les indicateurs de fin d’épisode.
+\end{itemize}
+
+Ces données serviront ensuite à entraîner différents modèles de récompense dans le cadre de l’Inverse Reinforcement Learning.
+
+L’objectif sera alors de construire une fonction :
+\[
+r_\theta(s,a)
+\]
+
+capable d’attribuer des récompenses élevées aux comportements proches des démonstrations expertes et des récompenses plus faibles aux comportements non experts.
+
+
+
+
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+
+\end{document}
+
+

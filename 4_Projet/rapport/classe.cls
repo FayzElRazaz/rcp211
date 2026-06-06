@@ -16,6 +16,7 @@
 \RequirePackage{nomencl}
 \makenomenclature
 \RequirePackage{fancyhdr}
+% \RequirePackage{biblatex}
 %\pagestyle{fancy}
 %\fancyheadoffset{1cm}
 %\setlength{\headheight}{2cm}
@@ -29,7 +30,7 @@
 \usepackage{pdfpages}
 \usepackage{array}
 \usepackage{libertine}
-\usepackage{biblatex}
+% \usepackage{biblatex}
 \usepackage{siunitx}
 \usepackage{setspace}
 \usepackage{subcaption}
@@ -73,7 +74,7 @@
 	\centering %Centraliser le contenu
 	\includegraphics[width=0.8\textwidth]{Logos/Logo-Cnam.jpg}%\par\vspace{1cm} 
 	\vspace{1cm}
-	{\scshape\Large \UE \\ \par \sujet \\ Rapport de projet\\ IA pour les données multimédia \par} %sous-titre
+	{\scshape\Large \UE \\ \par \sujet \\ Rapport de projet\\ Intelligence artificielle avancée\par} %sous-titre
 	\vspace{1cm}%Espace de 1cm
     \rule{\linewidth}{0.2 mm} \\[0.4 cm]
 	{\huge\bfseries \titre \par} \
@@ -106,9 +107,8 @@
 \newpage
 }
 % \addbibresource{biblio}
-% \usepackage[backend=biber,style=alphabetic]{biblatex}
-% \usepackage{biblatex}
-% \bibliography{references.bib}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\bibliography{references.bib}
 
 \newcommand{\insererfigure}[4]{
 \begin{figure}[ht]

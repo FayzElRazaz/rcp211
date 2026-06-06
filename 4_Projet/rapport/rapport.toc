@@ -5,22 +5,22 @@
 \contentsline {subsection}{\numberline {II.2}Principe général de la démarche}{3}{subsection.2.2}%
 \contentsline {subsection}{\numberline {II.3}Présentation de l’environnement CartPole}{4}{subsection.2.3}%
 \contentsline {subsection}{\numberline {II.4}Nature des démonstrations expertes}{5}{subsection.2.4}%
-\contentsline {section}{\numberline {III}Construction des démonstrations expertes}{5}{section.3}%
-\contentsline {subsection}{\numberline {III.1}Objectif}{5}{subsection.3.1}%
-\contentsline {subsection}{\numberline {III.2}Entraînement d’un agent expert}{5}{subsection.3.2}%
+\contentsline {section}{\numberline {III}Construction des démonstrations expertes}{6}{section.3}%
+\contentsline {subsection}{\numberline {III.1}Objectif}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {III.2}Entraînement d’un agent expert}{6}{subsection.3.2}%
 \contentsline {subsection}{\numberline {III.3}Génération des démonstrations}{6}{subsection.3.3}%
-\contentsline {subsection}{\numberline {III.4}Filtrage des trajectoires expertes}{6}{subsection.3.4}%
+\contentsline {subsection}{\numberline {III.4}Filtrage des trajectoires expertes}{7}{subsection.3.4}%
 \contentsline {subsection}{\numberline {III.5}Construction du dataset final}{7}{subsection.3.5}%
 \contentsline {section}{\numberline {IV}Modélisation de la fonction de récompense}{7}{section.4}%
 \contentsline {subsection}{\numberline {IV.1}Difficulté de la modélisation}{8}{subsection.4.1}%
 \contentsline {subsection}{\numberline {IV.2}Première approche : apprentissage discriminatif état par état}{8}{subsection.4.2}%
-\contentsline {subsection}{\numberline {IV.3}Limite de l’approche discriminative}{9}{subsection.4.3}%
-\contentsline {section}{\numberline {V}Méthode retenue : apprentissage par préférence de trajectoires}{9}{section.5}%
-\contentsline {subsection}{\numberline {V.1}Principe}{9}{subsection.5.1}%
-\contentsline {subsection}{\numberline {V.2}Boucle d’apprentissage}{10}{subsection.5.2}%
-\contentsline {subsection}{\numberline {V.3}Architecture de la récompense}{10}{subsection.5.3}%
+\contentsline {subsection}{\numberline {IV.3}Limite de l’approche discriminative}{10}{subsection.4.3}%
+\contentsline {section}{\numberline {V}Méthode retenue : apprentissage par préférence de trajectoires}{10}{section.5}%
+\contentsline {subsection}{\numberline {V.1}Principe}{10}{subsection.5.1}%
+\contentsline {subsection}{\numberline {V.2}Boucle d’apprentissage}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {V.3}Architecture de la récompense}{11}{subsection.5.3}%
 \contentsline {section}{\numberline {VI}Résultats expérimentaux}{11}{section.6}%
 \contentsline {subsection}{\numberline {VI.1}Résultats de la boucle par préférence de trajectoires}{11}{subsection.6.1}%
-\contentsline {subsection}{\numberline {VI.2}Réutilisation de la récompense finale}{11}{subsection.6.2}%
+\contentsline {subsection}{\numberline {VI.2}Réutilisation de la récompense finale}{12}{subsection.6.2}%
 \contentsline {subsection}{\numberline {VI.3}Analyse}{12}{subsection.6.3}%
-\contentsline {section}{\numberline {VII}Conclusion}{12}{section.7}%
+\contentsline {section}{\numberline {VII}Conclusion}{13}{section.7}%

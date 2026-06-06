@@ -125,6 +125,13 @@ Le système est constitué :
     \item d’un agent pouvant appliquer une force vers la gauche ou vers la droite.
 \end{itemize}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/cart-pole.png}
+    \caption{Environnement CartPole utilisé pour les expériences d'apprentissage par renforcement et d'apprentissage par récompense inverse. L'objectif consiste à maintenir le pendule en équilibre en appliquant des forces horizontales au chariot.}
+    \label{fig:cartpole}
+\end{figure}
+
 L’objectif est de maintenir le pendule en équilibre le plus longtemps possible sans que :
 \begin{itemize}
     \item l’angle du mât ne dépasse une certaine limite ;
@@ -339,19 +346,25 @@ Cette approche présente l’avantage d’être simple à mettre en œuvre et de
 
 La récompense linéaire obtient ponctuellement des performances relativement élevées, mais avec une variance extrêmement importante. Les récompenses quadratique et neuronale restent quant à elles nettement insuffisantes. Ces résultats suggèrent qu'une bonne séparation expert/non-expert ne garantit pas l'obtention d'une récompense robuste pour l'apprentissage par renforcement.
 
-\begin{table}[H]
-\centering
-\begin{tabular}{lcc}
-\toprule
-Modèle de récompense & Score moyen réel & Écart-type \\
-\midrule
-Récompense linéaire & 206.00 & 195.78 \\
-Récompense quadratique & 9.38 & 0.70 \\
-Réseau de neurones & 19.40 & 3.21 \\
-\bottomrule
-\end{tabular}
-\caption{Performance des agents PPO entraînés avec les récompenses apprises par discrimination état par état.}
-\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/ppo_learned_rewards.png}
+    \caption{Performance des agents PPO entraînés avec les récompenses apprises par discrimination état par état.}
+\end{figure}
+
+% \begin{table}[H]
+% \centering
+% \begin{tabular}{lcc}
+% \toprule
+% Modèle de récompense & Score moyen réel & Écart-type \\
+% \midrule
+% Récompense linéaire & 27.65 & 13.64 \\
+% Récompense quadratique & 8.95 & 0.70 \\
+% Réseau de neurones & 9.37 & 0.966 \\
+% \bottomrule
+% \end{tabular}
+% \caption{Performance des agents PPO entraînés avec les récompenses apprises par discrimination état par état.}
+% \end{table}
 
 Les résultats obtenus montrent que l'apprentissage discriminatif état par état reste insuffisant pour reconstruire une récompense robuste. Néanmoins, un comportement intéressant apparaît : la récompense linéaire obtient un score moyen supérieur aux modèles plus complexes.
 
@@ -441,8 +454,8 @@ La méthode par préférence de trajectoires a permis d’obtenir une améliorat
 
 Après dix itérations, les résultats obtenus sont les suivants :
 \begin{itemize}
-    \item longueur moyenne des épisodes : \(490.75 \pm 17.32\) ;
-    \item score moyen selon la récompense native de \texttt{CartPole}, utilisée uniquement pour analyse : \(484.30 \pm 30.31\).
+    \item longueur moyenne des épisodes : \(500.0 \pm 0.0\) ;
+    \item score moyen selon la récompense native de \texttt{CartPole}, utilisée uniquement pour analyse : \(500.0 \pm 0.0\).
 \end{itemize}
 
 Ces résultats montrent que la récompense apprise fournit un signal d’apprentissage suffisamment pertinent pour entraîner une politique proche de celle de l’expert.
@@ -453,10 +466,10 @@ Ces résultats montrent que la récompense apprise fournit un signal d’apprent
 \toprule
 Méthode & Score moyen réel & Écart-type \\
 \midrule
-Récompense linéaire & 206.00 & 195.78 \\
-Récompense quadratique & 9.38 & 0.70 \\
-Réseau de neurones & 19.40 & 3.21 \\
-Reward par préférence de trajectoires & 484.30 & 30.31 \\
+Récompense linéaire & 27.65 & 13.64 \\
+Récompense quadratique & 8.95 & 0.70 \\
+Récompense par réseau de neurones & 9.37 & 0.966 \\
+Reward par préférence de trajectoires & 500.0 & 0.0 \\
 \bottomrule
 \end{tabular}
 \caption{Comparaison des performances obtenues selon la méthode d’apprentissage de la récompense.}
@@ -468,22 +481,14 @@ L’écart entre les deux approches est net. L’apprentissage par préférence 
 
 Afin de vérifier que la récompense finale apprise n’est pas uniquement utile dans la boucle itérative, nous avons ensuite sauvegardé le modèle de récompense final, puis entraîné un nouvel agent PPO depuis zéro en utilisant uniquement cette récompense rechargée.
 
-Le nouvel agent atteint :
+Le nouvel agent atteint un score moyen de :
 \[
-278.15 \pm 18.47
+499.8 \pm 0.87
 \]
 
-sur la récompense native de \texttt{CartPole}, utilisée uniquement comme métrique d’évaluation.
+selon la récompense native de \texttt{CartPole}, utilisée uniquement comme métrique d’évaluation.
 
-Ce résultat est inférieur au score obtenu dans la boucle itérative complète, mais il reste nettement supérieur à une politique aléatoire. Il montre donc que la récompense apprise est bien réutilisable, même si elle ne généralise pas parfaitement lorsqu’elle est utilisée seule pour entraîner un nouvel agent depuis zéro.
-
-Cette différence suggère que la boucle itérative apprend à la fois :
-\begin{itemize}
-    \item une fonction de récompense informative ;
-    \item une politique progressivement adaptée à cette récompense.
-\end{itemize}
-
-La récompense finale contient donc bien un signal utile, mais la co-adaptation progressive entre la politique et la récompense joue également un rôle important dans la performance finale.
+Le nouvel agent entraîné uniquement à partir de la récompense apprise atteint un score moyen de 499.8, soit quasiment la performance maximale observée sur CartPole. Ce résultat indique que la fonction de récompense apprise contient suffisamment d'information pour reproduire un comportement expert sans accès aux démonstrations initiales. Bien que cette conclusion reste limitée au cadre de l'environnement étudié, elle constitue un résultat encourageant quant à la qualité de la récompense apprise.
 
 \subsection{Analyse}
 
@@ -497,18 +502,17 @@ Enfin, la vraie récompense de \texttt{CartPole} n’a été utilisée que comme
 
 \section{Conclusion}
 
-Ce projet avait pour objectif de mettre en œuvre une chaîne simplifiée d’Inverse Reinforcement Learning sur l’environnement \texttt{CartPole}. Nous avons d’abord entraîné un agent expert avec PPO, puis utilisé ses trajectoires comme démonstrations expertes.
+L'objectif de ce projet était d'étudier différentes approches d'apprentissage par récompense inverse sur l'environnement CartPole afin de déterminer dans quelle mesure il est possible de reconstruire une fonction de récompense à partir d'observations de comportements experts.
 
-Une première approche consistant à apprendre une récompense discriminative état par état a permis d'obtenir des résultats contrastés. La récompense linéaire produit parfois des comportements relativement performants, mais avec une très forte variance. Les modèles quadratiques et neuronaux obtiennent quant à eux des performances nettement inférieures. Ces résultats suggèrent qu'une bonne capacité de discrimination entre états experts et non experts ne garantit pas l'obtention d'un signal d'apprentissage pertinent pour le Reinforcement Learning.
+Une première approche reposant sur l'apprentissage supervisé d'une fonction discriminante entre états experts et non experts a été étudiée. Trois paramétrisations ont été testées : linéaire, quadratique et réseau de neurones. Bien que ces modèles soient capables de distinguer partiellement les démonstrations expertes des démonstrations aléatoires, les récompenses obtenues se sont révélées insuffisantes pour guider efficacement un nouvel apprentissage par renforcement. Ces résultats illustrent une limite importante des approches purement discriminatives : une bonne séparation entre classes n'implique pas nécessairement l'obtention d'une récompense exploitable par un agent.
 
-La méthode finalement retenue repose sur une préférence de trajectoires. Le modèle de récompense est entraîné pour attribuer un retour plus élevé aux trajectoires expertes qu’aux trajectoires produites par l’agent courant. Cette approche a permis d’obtenir un agent atteignant un score moyen de \(484.30\), proche de la performance maximale de \texttt{CartPole-v1}.
+Une seconde approche fondée sur l'apprentissage par préférences a ensuite été mise en œuvre. À chaque itération, des trajectoires ont été comparées en fonction de leur qualité, permettant d'entraîner progressivement un modèle de récompense capable de reproduire ces préférences. Les résultats obtenus montrent une amélioration continue des trajectoires générées jusqu'à atteindre la performance maximale de l'environnement CartPole.
 
-La réutilisation de la récompense finale pour entraîner un nouvel agent depuis zéro donne un score moyen de \(278.15\), montrant que la récompense apprise contient bien un signal utile, même si la boucle itérative complète reste plus performante.
+Enfin, la récompense apprise a été sauvegardée puis réutilisée indépendamment des démonstrations initiales afin d'entraîner un nouvel agent PPO depuis zéro. Cet agent atteint à son tour une performance quasi optimale, avec un score moyen de 499.8 sur 500. Ce résultat constitue un élément particulièrement important puisqu'il montre que la récompense apprise ne se contente pas de reproduire les préférences observées : elle capture effectivement les caractéristiques essentielles du comportement expert et peut être réutilisée comme signal d'apprentissage autonome.
 
-Ces résultats illustrent une idée importante de l’IRL : la qualité d’une récompense apprise ne se juge pas uniquement à sa capacité à reconnaître les démonstrations expertes, mais surtout à sa capacité à produire, après optimisation par RL, une politique performante.
+Ainsi, dans le cadre de CartPole, ce projet met en évidence l'intérêt des approches basées sur les préférences pour l'apprentissage de fonctions de récompense. Alors que les approches discriminatives étudiées n'ont pas permis de reconstruire une récompense exploitable, l'apprentissage par préférences a conduit à une récompense suffisamment informative pour permettre l'émergence d'un comportement expert, démontrant ainsi la faisabilité pratique de l'apprentissage par récompense inverse sur ce problème.
 
-% \bibliographystyle{plain}
-% \bibliography{references}
+\newpage
 \printbibliography
 
 \end{document}

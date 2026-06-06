@@ -18,7 +18,7 @@
 
 
 \refsection{0}
-  \datalist[entry]{nty/////}
+  \datalist[entry]{anyt/global//global/global/global}
     \entry{abbeel2004apprenticeship}{inproceedings}{}{}
       \name{author}{2}{}{%
         {{hash=e28d4ee199593959d8c29980a64f1974}{%
@@ -40,6 +40,7 @@
       \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
       \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
       \strng{authorfullhashraw}{b160d382644c505a6dd5026a42f29910}
+      \field{labelalpha}{AN04}
       \field{sortinit}{A}
       \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
       \field{labelnamesource}{author}
@@ -62,6 +63,7 @@
       \strng{authornamehash}{d21de9f84202ccb74f5f42d6e8c8b75b}
       \strng{authorfullhash}{d21de9f84202ccb74f5f42d6e8c8b75b}
       \strng{authorfullhashraw}{d21de9f84202ccb74f5f42d6e8c8b75b}
+      \field{labelalpha}{Far23}
       \field{sortinit}{F}
       \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
       \field{labelnamesource}{author}
@@ -96,6 +98,7 @@
       \strng{authornamehash}{f4c106d93a45177b2edd056b98b0ca48}
       \strng{authorfullhash}{f4c106d93a45177b2edd056b98b0ca48}
       \strng{authorfullhashraw}{f4c106d93a45177b2edd056b98b0ca48}
+      \field{labelalpha}{FLA16}
       \field{sortinit}{F}
       \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
       \field{labelnamesource}{author}
@@ -132,6 +135,7 @@
       \strng{authornamehash}{0a246cb6a7df23446d91986c3b608fd8}
       \strng{authorfullhash}{0a246cb6a7df23446d91986c3b608fd8}
       \strng{authorfullhashraw}{0a246cb6a7df23446d91986c3b608fd8}
+      \field{labelalpha}{MKS+15}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -165,6 +169,7 @@
       \strng{authornamehash}{4c8cf64747bc12608082f0713aac10b0}
       \strng{authorfullhash}{4c8cf64747bc12608082f0713aac10b0}
       \strng{authorfullhashraw}{4c8cf64747bc12608082f0713aac10b0}
+      \field{labelalpha}{NR00}
       \field{sortinit}{N}
       \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
       \field{labelnamesource}{author}
@@ -172,6 +177,36 @@
       \field{booktitle}{Proceedings of the 17th International Conference on Machine Learning (ICML)}
       \field{title}{Algorithms for Inverse Reinforcement Learning}
       \field{year}{2000}
+    \endentry
+    \entry{sutton2018reinforcement}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=eb920e5277d3d5fd0903f3cd41e11871}{%
+           family={Sutton},
+           familyi={S\bibinitperiod},
+           given={Richard\bibnamedelima S.},
+           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=32a0a208f8bcf56a13b0a8e618aa806a}{%
+           family={Barto},
+           familyi={B\bibinitperiod},
+           given={Andrew\bibnamedelima G.},
+           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+      }
+      \strng{namehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{fullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{fullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{bibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authorbibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authornamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authorfullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \strng{authorfullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
+      \field{labelalpha}{SB18}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{MIT Press}
+      \field{title}{Reinforcement Learning: An Introduction}
+      \field{year}{2018}
     \endentry
     \entry{silver2016mastering}{article}{}{}
       \true{moreauthor}
@@ -201,6 +236,7 @@
       \strng{authornamehash}{558ceaaf3ca3a5563ec7aae177a33f58}
       \strng{authorfullhash}{558ceaaf3ca3a5563ec7aae177a33f58}
       \strng{authorfullhashraw}{558ceaaf3ca3a5563ec7aae177a33f58}
+      \field{labelalpha}{SHM+16}
       \field{sortinit}{S}
       \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
       \field{labelnamesource}{author}
@@ -212,62 +248,6 @@
       \field{year}{2016}
       \field{pages}{484\bibrangedash 489}
       \range{pages}{6}
-    \endentry
-    \entry{sutton2018reinforcement}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=eb920e5277d3d5fd0903f3cd41e11871}{%
-           family={Sutton},
-           familyi={S\bibinitperiod},
-           given={Richard\bibnamedelima S.},
-           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
-        {{hash=32a0a208f8bcf56a13b0a8e618aa806a}{%
-           family={Barto},
-           familyi={B\bibinitperiod},
-           given={Andrew\bibnamedelima G.},
-           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-      }
-      \strng{namehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{fullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{fullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{bibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorbibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authornamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorfullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorfullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{MIT Press}
-      \field{title}{Reinforcement Learning: An Introduction}
-      \field{year}{2018}
-    \endentry
-    \entry{ziebart2010modeling}{thesis}{}{}
-      \name{author}{1}{}{%
-        {{hash=8e68984dfc0a273545306feb9b211436}{%
-           family={Ziebart},
-           familyi={Z\bibinitperiod},
-           given={Brian\bibnamedelima D.},
-           giveni={B\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
-      }
-      \list{institution}{1}{%
-        {Carnegie Mellon University}%
-      }
-      \strng{namehash}{8e68984dfc0a273545306feb9b211436}
-      \strng{fullhash}{8e68984dfc0a273545306feb9b211436}
-      \strng{fullhashraw}{8e68984dfc0a273545306feb9b211436}
-      \strng{bibnamehash}{8e68984dfc0a273545306feb9b211436}
-      \strng{authorbibnamehash}{8e68984dfc0a273545306feb9b211436}
-      \strng{authornamehash}{8e68984dfc0a273545306feb9b211436}
-      \strng{authorfullhash}{8e68984dfc0a273545306feb9b211436}
-      \strng{authorfullhashraw}{8e68984dfc0a273545306feb9b211436}
-      \field{sortinit}{Z}
-      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Modeling Purposeful Adaptive Behavior with the Principle of Maximum Causal Entropy}
-      \field{type}{phdthesis}
-      \field{year}{2010}
     \endentry
     \entry{ziebart2008maximum}{inproceedings}{}{}
       \name{author}{4}{}{%
@@ -300,6 +280,7 @@
       \strng{authornamehash}{6744e752339e5653b85d150b016f3ef3}
       \strng{authorfullhash}{9b9fbf2c445b74f55196877919ce1035}
       \strng{authorfullhashraw}{9b9fbf2c445b74f55196877919ce1035}
+      \field{labelalpha}{Zie+08}
       \field{sortinit}{Z}
       \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
       \field{labelnamesource}{author}
@@ -307,231 +288,6 @@
       \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence}
       \field{title}{Maximum Entropy Inverse Reinforcement Learning}
       \field{year}{2008}
-    \endentry
-  \enddatalist
-  \datalist[entry]{nty/global//global/global/global}
-    \entry{abbeel2004apprenticeship}{inproceedings}{}{}
-      \name{author}{2}{}{%
-        {{hash=e28d4ee199593959d8c29980a64f1974}{%
-           family={Abbeel},
-           familyi={A\bibinitperiod},
-           given={Pieter},
-           giveni={P\bibinitperiod}}}%
-        {{hash=49e889356ff39df159461bc2895c7e16}{%
-           family={Ng},
-           familyi={N\bibinitperiod},
-           given={Andrew\bibnamedelima Y.},
-           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-      }
-      \strng{namehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{fullhash}{b160d382644c505a6dd5026a42f29910}
-      \strng{fullhashraw}{b160d382644c505a6dd5026a42f29910}
-      \strng{bibnamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authorbibnamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authornamehash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authorfullhash}{b160d382644c505a6dd5026a42f29910}
-      \strng{authorfullhashraw}{b160d382644c505a6dd5026a42f29910}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 21st International Conference on Machine Learning (ICML)}
-      \field{title}{Apprenticeship Learning via Inverse Reinforcement Learning}
-      \field{year}{2004}
-    \endentry
-    \entry{gymnasium}{misc}{}{}
-      \name{author}{1}{}{%
-        {{hash=d21de9f84202ccb74f5f42d6e8c8b75b}{%
-           family={{Farama Foundation}},
-           familyi={F\bibinitperiod}}}%
-      }
-      \strng{namehash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{fullhash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{fullhashraw}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{bibnamehash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{authorbibnamehash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{authornamehash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{authorfullhash}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \strng{authorfullhashraw}{d21de9f84202ccb74f5f42d6e8c8b75b}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{note}{\url{https://gymnasium.farama.org/}}
-      \field{title}{Gymnasium Documentation}
-      \field{year}{2023}
-    \endentry
-    \entry{finn2016guided}{inproceedings}{}{}
-      \name{author}{3}{}{%
-        {{hash=058e82495825ae376c6a96a12169e6ee}{%
-           family={Finn},
-           familyi={F\bibinitperiod},
-           given={Chelsea},
-           giveni={C\bibinitperiod}}}%
-        {{hash=c9545da54b33744da25943cdf66eadac}{%
-           family={Levine},
-           familyi={L\bibinitperiod},
-           given={Sergey},
-           giveni={S\bibinitperiod}}}%
-        {{hash=e28d4ee199593959d8c29980a64f1974}{%
-           family={Abbeel},
-           familyi={A\bibinitperiod},
-           given={Pieter},
-           giveni={P\bibinitperiod}}}%
-      }
-      \strng{namehash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{fullhash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{fullhashraw}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{bibnamehash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{authorbibnamehash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{authornamehash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{authorfullhash}{f4c106d93a45177b2edd056b98b0ca48}
-      \strng{authorfullhashraw}{f4c106d93a45177b2edd056b98b0ca48}
-      \field{sortinit}{F}
-      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 33rd International Conference on Machine Learning (ICML)}
-      \field{title}{Guided Cost Learning: Deep Inverse Optimal Control via Policy Optimization}
-      \field{year}{2016}
-    \endentry
-    \entry{mnih2015human}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{3}{}{%
-        {{hash=f7d23cfe4ca0e6bf7a8c251bfa78aca6}{%
-           family={Mnih},
-           familyi={M\bibinitperiod},
-           given={Volodymyr},
-           giveni={V\bibinitperiod}}}%
-        {{hash=481308b301166b521c74fde6566e97e6}{%
-           family={Kavukcuoglu},
-           familyi={K\bibinitperiod},
-           given={Koray},
-           giveni={K\bibinitperiod}}}%
-        {{hash=89dbd30410c2085cd059f32c57d4593e}{%
-           family={Silver},
-           familyi={S\bibinitperiod},
-           given={David},
-           giveni={D\bibinitperiod}}}%
-      }
-      \strng{namehash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{fullhash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{fullhashraw}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{bibnamehash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{authorbibnamehash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{authornamehash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{authorfullhash}{0a246cb6a7df23446d91986c3b608fd8}
-      \strng{authorfullhashraw}{0a246cb6a7df23446d91986c3b608fd8}
-      \field{sortinit}{M}
-      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Nature}
-      \field{number}{7540}
-      \field{title}{Human-level Control through Deep Reinforcement Learning}
-      \field{volume}{518}
-      \field{year}{2015}
-      \field{pages}{529\bibrangedash 533}
-      \range{pages}{5}
-    \endentry
-    \entry{ng2000algorithms}{inproceedings}{}{}
-      \name{author}{2}{}{%
-        {{hash=49e889356ff39df159461bc2895c7e16}{%
-           family={Ng},
-           familyi={N\bibinitperiod},
-           given={Andrew\bibnamedelima Y.},
-           giveni={A\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-        {{hash=143fa183327d9fcd9de18eec99d6ca97}{%
-           family={Russell},
-           familyi={R\bibinitperiod},
-           given={Stuart},
-           giveni={S\bibinitperiod}}}%
-      }
-      \strng{namehash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{fullhash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{fullhashraw}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{bibnamehash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{authorbibnamehash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{authornamehash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{authorfullhash}{4c8cf64747bc12608082f0713aac10b0}
-      \strng{authorfullhashraw}{4c8cf64747bc12608082f0713aac10b0}
-      \field{sortinit}{N}
-      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the 17th International Conference on Machine Learning (ICML)}
-      \field{title}{Algorithms for Inverse Reinforcement Learning}
-      \field{year}{2000}
-    \endentry
-    \entry{silver2016mastering}{article}{}{}
-      \true{moreauthor}
-      \true{morelabelname}
-      \name{author}{3}{}{%
-        {{hash=89dbd30410c2085cd059f32c57d4593e}{%
-           family={Silver},
-           familyi={S\bibinitperiod},
-           given={David},
-           giveni={D\bibinitperiod}}}%
-        {{hash=ba4b200ce1412a2570cb113366cc9559}{%
-           family={Huang},
-           familyi={H\bibinitperiod},
-           given={Aja},
-           giveni={A\bibinitperiod}}}%
-        {{hash=7c3126321fcb4553dfda5ae96da928ce}{%
-           family={Maddison},
-           familyi={M\bibinitperiod},
-           given={Chris\bibnamedelima J.},
-           giveni={C\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-      }
-      \strng{namehash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{fullhash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{fullhashraw}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{bibnamehash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{authorbibnamehash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{authornamehash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{authorfullhash}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \strng{authorfullhashraw}{558ceaaf3ca3a5563ec7aae177a33f58}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Nature}
-      \field{number}{7587}
-      \field{title}{Mastering the Game of Go with Deep Neural Networks and Tree Search}
-      \field{volume}{529}
-      \field{year}{2016}
-      \field{pages}{484\bibrangedash 489}
-      \range{pages}{6}
-    \endentry
-    \entry{sutton2018reinforcement}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=eb920e5277d3d5fd0903f3cd41e11871}{%
-           family={Sutton},
-           familyi={S\bibinitperiod},
-           given={Richard\bibnamedelima S.},
-           giveni={R\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
-        {{hash=32a0a208f8bcf56a13b0a8e618aa806a}{%
-           family={Barto},
-           familyi={B\bibinitperiod},
-           given={Andrew\bibnamedelima G.},
-           giveni={A\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-      }
-      \strng{namehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{fullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{fullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{bibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorbibnamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authornamehash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorfullhash}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \strng{authorfullhashraw}{c6212f1a1407d96a3d9f4fefbb07eade}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{MIT Press}
-      \field{title}{Reinforcement Learning: An Introduction}
-      \field{year}{2018}
     \endentry
     \entry{ziebart2010modeling}{thesis}{}{}
       \name{author}{1}{}{%
@@ -552,6 +308,7 @@
       \strng{authornamehash}{8e68984dfc0a273545306feb9b211436}
       \strng{authorfullhash}{8e68984dfc0a273545306feb9b211436}
       \strng{authorfullhashraw}{8e68984dfc0a273545306feb9b211436}
+      \field{labelalpha}{Zie10}
       \field{sortinit}{Z}
       \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
       \field{labelnamesource}{author}
@@ -559,45 +316,6 @@
       \field{title}{Modeling Purposeful Adaptive Behavior with the Principle of Maximum Causal Entropy}
       \field{type}{phdthesis}
       \field{year}{2010}
-    \endentry
-    \entry{ziebart2008maximum}{inproceedings}{}{}
-      \name{author}{4}{}{%
-        {{hash=8e68984dfc0a273545306feb9b211436}{%
-           family={Ziebart},
-           familyi={Z\bibinitperiod},
-           given={Brian\bibnamedelima D.},
-           giveni={B\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
-        {{hash=c33047dfef65529c572bd224dcdfbe64}{%
-           family={Maas},
-           familyi={M\bibinitperiod},
-           given={Andrew},
-           giveni={A\bibinitperiod}}}%
-        {{hash=49832523c57a7bf40445f071b2ad2c0a}{%
-           family={Bagnell},
-           familyi={B\bibinitperiod},
-           given={J.\bibnamedelimi Andrew},
-           giveni={J\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=383a958e7dc63d5a57bbeec2a4e3ac93}{%
-           family={Dey},
-           familyi={D\bibinitperiod},
-           given={Anind\bibnamedelima K.},
-           giveni={A\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
-      }
-      \strng{namehash}{6744e752339e5653b85d150b016f3ef3}
-      \strng{fullhash}{9b9fbf2c445b74f55196877919ce1035}
-      \strng{fullhashraw}{9b9fbf2c445b74f55196877919ce1035}
-      \strng{bibnamehash}{6744e752339e5653b85d150b016f3ef3}
-      \strng{authorbibnamehash}{6744e752339e5653b85d150b016f3ef3}
-      \strng{authornamehash}{6744e752339e5653b85d150b016f3ef3}
-      \strng{authorfullhash}{9b9fbf2c445b74f55196877919ce1035}
-      \strng{authorfullhashraw}{9b9fbf2c445b74f55196877919ce1035}
-      \field{sortinit}{Z}
-      \field{sortinithash}{96892c0b0a36bb8557c40c49813d48b3}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{booktitle}{Proceedings of the AAAI Conference on Artificial Intelligence}
-      \field{title}{Maximum Entropy Inverse Reinforcement Learning}
-      \field{year}{2008}
     \endentry
   \enddatalist
 \endrefsection

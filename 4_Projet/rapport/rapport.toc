@@ -22,5 +22,5 @@
 \contentsline {section}{\numberline {VI}Résultats expérimentaux}{11}{section.6}%
 \contentsline {subsection}{\numberline {VI.1}Résultats de la boucle par préférence de trajectoires}{11}{subsection.6.1}%
 \contentsline {subsection}{\numberline {VI.2}Réutilisation de la récompense finale}{12}{subsection.6.2}%
-\contentsline {subsection}{\numberline {VI.3}Analyse}{12}{subsection.6.3}%
+\contentsline {subsection}{\numberline {VI.3}Analyse}{13}{subsection.6.3}%
 \contentsline {section}{\numberline {VII}Conclusion}{13}{section.7}%

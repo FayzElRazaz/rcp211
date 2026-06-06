@@ -452,11 +452,17 @@ Contrairement aux premières expériences, nous n’utilisons pas de fonction d�
 
 La méthode par préférence de trajectoires a permis d’obtenir une amélioration progressive de la politique entraînée avec la récompense apprise.
 
-Après dix itérations, les résultats obtenus sont les suivants :
+Après deux itérations, les résultats obtenus sont les suivants :
 \begin{itemize}
     \item longueur moyenne des épisodes : \(500.0 \pm 0.0\) ;
     \item score moyen selon la récompense native de \texttt{CartPole}, utilisée uniquement pour analyse : \(500.0 \pm 0.0\).
 \end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/preference_trajectory_lengths.png}
+    \caption{Evolution de la longueur des trajectoires préférées}
+\end{figure}
 
 Ces résultats montrent que la récompense apprise fournit un signal d’apprentissage suffisamment pertinent pour entraîner une politique proche de celle de l’expert.
 

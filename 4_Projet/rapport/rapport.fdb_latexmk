@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber rapport"] 1780769188.00081 "rapport.bcf" "rapport.bbl" "rapport" 1780769395.01341 0
-  "rapport.bcf" 1780769394 109357 e6884a7feaa8e57166d6e8cf1d9dcb3a "pdflatex"
+["biber rapport"] 1780769188.00081 "rapport.bcf" "rapport.bbl" "rapport" 1780771395.54789 0
+  "rapport.bcf" 1780771395 109357 e6884a7feaa8e57166d6e8cf1d9dcb3a "pdflatex"
   "references.bib" 1780689737 2395 6af3bbcc92a90468e0e4178366bd8c93 ""
   (generated)
   "rapport.bbl"
   "rapport.blg"
   (rewritten before read)
-["pdflatex"] 1780769392.14933 "c:/Users/FaYzerR/Documents/Travail/Cours/CNAM/RCP211/4_Projet/rapport/rapport.tex" "rapport.pdf" "rapport" 1780769395.01465 0
+["pdflatex"] 1780771392.91026 "c:/Users/FaYzerR/Documents/Travail/Cours/CNAM/RCP211/4_Projet/rapport/rapport.tex" "rapport.pdf" "rapport" 1780771395.54903 0
   "C:/Users/FaYzerR/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1780744231 132209 0fb36200973000933e455270a86542c1 ""
   "C:/Users/FaYzerR/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1780744225 13334495 f173ba32462b325a1a5b67a852b5f6ac ""
   "C:/Users/FaYzerR/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_76gpa5.enc" 1497089888 2933 9ad527ce78d7c5fa0a642dead095f172 ""
@@ -177,16 +177,17 @@
   "C:/Users/FaYzerR/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "C:/Users/FaYzerR/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "Logos/Logo-Cnam.jpg" 1769861540 75578 786dfb1ad8c8aa4be706e4c775d219ea ""
-  "c:/Users/FaYzerR/Documents/Travail/Cours/CNAM/RCP211/4_Projet/rapport/rapport.tex" 1780769391 34010 30ef50db21765e7840ac5746d0c6ca13 ""
+  "c:/Users/FaYzerR/Documents/Travail/Cours/CNAM/RCP211/4_Projet/rapport/rapport.tex" 1780771389 34218 04cdfb42258f4daa1d5166bc9fe78e4e ""
   "classe.cls" 1780769184 3797 3d57533c40447d567264cf8830f841fd ""
   "figures/cart-pole.png" 1780768107 64320 34f389adaa671ff179db1d208f5eddfa ""
   "figures/ppo_learned_rewards.png" 1780766853 120575 cd6ee3b63cc2077111fe065621cf4609 ""
-  "rapport.aux" 1780769394 6579 d8196d0e3dbac8684571f851dd92e737 "pdflatex"
+  "figures/preference_trajectory_lengths.png" 1780766853 91445 2decb3aa3a5c625911b05debe73362c7 ""
+  "rapport.aux" 1780771395 6753 45c2a2142f96b8d25d2cbf613e13ef2d "pdflatex"
   "rapport.bbl" 1780769190 14024 24e25121c865c4e9fbaef79a4c23ef74 "biber rapport"
-  "rapport.out" 1780769394 5494 4093fc726f59ec5a88875e68b40f7e6b "pdflatex"
-  "rapport.run.xml" 1780769394 2331 000e714c6b5cc3f09114358390831d16 "pdflatex"
-  "rapport.tex" 1780769391 34010 30ef50db21765e7840ac5746d0c6ca13 ""
-  "rapport.toc" 1780769394 2454 26acc42e8765a5056da55bcef7acb150 "pdflatex"
+  "rapport.out" 1780771395 5494 4093fc726f59ec5a88875e68b40f7e6b "pdflatex"
+  "rapport.run.xml" 1780771395 2331 000e714c6b5cc3f09114358390831d16 "pdflatex"
+  "rapport.tex" 1780771389 34218 04cdfb42258f4daa1d5166bc9fe78e4e ""
+  "rapport.toc" 1780771395 2454 cd9c700510e98df0e6f78e41492b7684 "pdflatex"
   (generated)
   "rapport.aux"
   "rapport.bcf"

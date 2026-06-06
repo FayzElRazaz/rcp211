@@ -1,29 +1,48 @@
-\documentclass[12pt]{article}
-\usepackage[a4paper, margin=2cm]{geometry}
+% \documentclass[12pt]{article}
+% \usepackage[a4paper, margin=2cm]{geometry}
 
 % \documentclass[11pt,twocolumn]{article}
 % \usepackage[a4paper, margin=1.8cm]{geometry}
 
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{float}
-\usepackage{subcaption}
-\usepackage[french]{babel}
+% \usepackage[utf8]{inputenc}
+% \usepackage{amsmath}
+% \usepackage{amssymb}
+% \usepackage{amsthm}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{hyperref}
+% \usepackage{float}
+% \usepackage{subcaption}
+% \usepackage[french]{babel}
 
-\title{RCP211 - Projet d'Inverse Reinforcement Learning}
-\author{Fayz El Razaz}
-\date{\today}
+% \title{RCP211 - Projet d'Inverse Reinforcement Learning}
+% \author{Fayz El Razaz}
+% \date{\today}
 
+% \begin{document}
+
+
+\documentclass{classe}
 \begin{document}
-
-\maketitle
-
+%----------- Informations du rapport ---------
+\titre{Inverse Reinforcement Learning} %Titre du fichier .pdf
+\sujet{Projet RCP211} %Nom du sujet    
+\eleves{Fayz \textsc{El Razaz}}%Nom des élèves
+		
+%----------- Initialisation -------------------
+        
+\fairemarges %Afficher les marges
+\fairepagedegarde %Créer la page de garde
+\tabledematieres
+% \tableofcontents
+% \newpage
+%----------- Rapport -------------------
 \section{Introduction}
+
+
+% \maketitle
+
+% \section{Introduction}
 
 L’apprentissage par renforcement (\textit{Reinforcement Learning}, RL) est un domaine de l’intelligence artificielle dans lequel un agent apprend à interagir avec un environnement afin de maximiser une récompense cumulative \cite{sutton2018reinforcement}. À chaque instant, l’agent observe un état de l’environnement, choisit une action, puis reçoit une récompense indiquant la qualité de cette action relativement à l’objectif recherché. Progressivement, l’agent apprend une politique de décision lui permettant d’adopter un comportement performant.
 
@@ -268,12 +287,12 @@ Nous disposons désormais d’un ensemble de démonstrations expertes construite
 
 L’objectif n’est plus ici d’apprendre directement une politique, mais de construire une fonction :
 \[
-r_\theta(s,a)
+r_\theta(s)
 \]
 
-capable d’attribuer des récompenses élevées aux comportements proches de ceux de l’expert et des récompenses plus faibles aux comportements non experts.
+capable d’attribuer des récompenses élevées aux comportements compatibles avec ceux de l’expert. Dans notre implémentation, nous faisons le choix de modéliser une récompense dépendant uniquement de l’état \(s\), et non explicitement de l’action \(a\). Ce choix simplifie le problème et semble raisonnable dans le cas de \texttt{CartPole}, où l’objectif principal consiste à maintenir le système dans des états stables.
 
-Autrement dit, nous cherchons à reconstruire implicitement ce qui semble être valorisé par l’expert à travers les trajectoires observées. Une fois cette récompense apprise, elle pourra ensuite être utilisée comme signal d’apprentissage pour entraîner un nouvel agent par Reinforcement Learning classique.
+Une fois cette récompense apprise, elle est utilisée comme signal d’apprentissage pour entraîner un nouvel agent par Reinforcement Learning classique. La qualité de la récompense apprise ne se mesure donc pas uniquement à sa capacité à distinguer les trajectoires expertes, mais surtout à sa capacité à permettre l’apprentissage d’une politique performante.
 
 Cette étape constitue le cœur du projet, car elle correspond au passage :
 \begin{center}
@@ -285,65 +304,214 @@ alors qu’en Reinforcement Learning classique, le problème est généralement 
 fonction de récompense \(\rightarrow\) politique optimale.
 \end{center}
 
-\subsection{Principe général}
-
-Le principe retenu dans ce projet consiste à entraîner un modèle paramétrique capable de différencier :
-\begin{itemize}
-    \item les états provenant des démonstrations expertes ;
-    \item les états provenant de comportements non experts.
-\end{itemize}
-
-L’idée est que si un état apparaît fréquemment dans les trajectoires expertes, alors cet état doit probablement être considéré comme désirable par la fonction de récompense recherchée.
-
-Le modèle appris attribuera donc progressivement :
-\begin{itemize}
-    \item des scores élevés aux états experts ;
-    \item des scores plus faibles aux états aléatoires ou sous-optimaux.
-\end{itemize}
-
-Dans une étape ultérieure, cette fonction de récompense sera utilisée comme signal d’apprentissage dans un nouvel entraînement par Reinforcement Learning afin d’évaluer si elle permet effectivement de reconstruire un comportement proche de celui de l’expert initial.
-
 \subsection{Difficulté de la modélisation}
 
-L’apprentissage d’une fonction de récompense constitue cependant un problème difficile. Contrairement à un problème supervisé classique, il n’existe pas nécessairement une unique récompense expliquant le comportement observé.
+L’apprentissage d’une fonction de récompense constitue un problème difficile. Contrairement à un problème supervisé classique, il n’existe pas nécessairement une unique récompense expliquant le comportement observé.
 
 Dans le cas de \texttt{CartPole}, plusieurs formulations peuvent conduire à un comportement performant :
 \begin{itemize}
     \item maintenir le pendule proche de la verticale ;
     \item limiter les vitesses angulaires ;
     \item éviter les états de chute ;
-    \item maximiser simplement la durée de survie de l’épisode.
+    \item maximiser la durée de survie de l’épisode.
 \end{itemize}
 
-Toutes ces récompenses peuvent potentiellement produire des politiques proches. Le problème est donc sous-déterminé : plusieurs fonctions de récompense différentes peuvent expliquer les mêmes démonstrations expertes.
+Toutes ces récompenses peuvent produire des politiques proches. Le problème est donc sous-déterminé : plusieurs fonctions de récompense différentes peuvent expliquer les mêmes démonstrations expertes.
 
-Pour cette raison, l’objectif n’est pas nécessairement de retrouver exactement la récompense native de l’environnement, mais plutôt de construire une récompense permettant de reproduire un comportement similaire à celui de l’expert.
+De plus, une difficulté supplémentaire est apparue expérimentalement : une fonction de récompense capable de séparer correctement des états experts et des états non experts ne constitue pas nécessairement un bon signal d’apprentissage pour un agent RL. Une récompense utile doit également être progressive, stable, et exploitable par l’algorithme d’apprentissage.
 
-\subsection{Modèles étudiés}
+\subsection{Première approche : apprentissage discriminatif état par état}
 
-Afin d’étudier l’impact de la modélisation de la récompense sur les performances finales, plusieurs approches seront testées et comparées.
+Dans un premier temps, nous avons formulé l’apprentissage de la récompense comme un problème de discrimination entre :
+\begin{itemize}
+    \item les états provenant des trajectoires expertes ;
+    \item les états provenant de trajectoires non expertes.
+\end{itemize}
 
-Nous commencerons par des modèles simples et interprétables, avant d’utiliser des modèles plus expressifs :
+L’idée était d’entraîner un modèle attribuant un score élevé aux états experts et un score faible aux états non experts. Plusieurs familles de modèles ont été testées :
 \begin{itemize}
     \item une récompense linéaire ;
-    \item une récompense quadratique inspirée des propriétés physiques du problème ;
-    \item une récompense basée sur un réseau de neurones.
+    \item une récompense quadratique ;
+    \item une récompense représentée par un réseau de neurones ;
 \end{itemize}
 
-Cette progression permettra :
+Cette approche présente l’avantage d’être simple à mettre en œuvre et de fournir une première baseline. Cependant, les résultats ont montré une limite importante : les modèles les plus capables de discriminer les états experts des états non experts ne sont pas nécessairement ceux qui permettent d’entraîner les meilleurs agents.
+
+La récompense linéaire obtient ponctuellement des performances relativement élevées, mais avec une variance extrêmement importante. Les récompenses quadratique et neuronale restent quant à elles nettement insuffisantes. Ces résultats suggèrent qu'une bonne séparation expert/non-expert ne garantit pas l'obtention d'une récompense robuste pour l'apprentissage par renforcement.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Modèle de récompense & Score moyen réel & Écart-type \\
+\midrule
+Récompense linéaire & 206.00 & 195.78 \\
+Récompense quadratique & 9.38 & 0.70 \\
+Réseau de neurones & 19.40 & 3.21 \\
+\bottomrule
+\end{tabular}
+\caption{Performance des agents PPO entraînés avec les récompenses apprises par discrimination état par état.}
+\end{table}
+
+Les résultats obtenus montrent que l'apprentissage discriminatif état par état reste insuffisant pour reconstruire une récompense robuste. Néanmoins, un comportement intéressant apparaît : la récompense linéaire obtient un score moyen supérieur aux modèles plus complexes.
+
+Ce résultat peut s'expliquer par la nature de l'environnement CartPole. La récompense native de CartPole est constante et indépendante de l'état. Une modélisation simple semble donc plus adaptée qu'un modèle fortement non linéaire susceptible d'apprendre des frontières de décision artificielles entre états experts et non experts.
+
+Cependant, l'écart-type très important observé pour la récompense linéaire indique une forte instabilité des politiques apprises. Malgré des épisodes parfois performants, la récompense ne fournit pas un signal suffisamment robuste pour reproduire systématiquement le comportement expert.
+
+\subsection{Limite de l’approche discriminative}
+
+L’approche précédente présente une faiblesse méthodologique : elle apprend une récompense localement, état par état, sans raisonner directement au niveau des trajectoires complètes.
+
+Or, dans le cadre de l’IRL, les démonstrations expertes sont précisément des trajectoires :
+\[
+\tau_E = (s_0,a_0,s_1,a_1,\dots,s_T)
+\]
+
+et non une simple collection indépendante d’états. Il est donc plus naturel de chercher à apprendre une récompense telle que les trajectoires expertes obtiennent un meilleur retour que les trajectoires produites par l’agent courant.
+
+Cette réflexion nous a conduits à abandonner l’approche discriminative état par état comme méthode principale, pour retenir une approche par préférence de trajectoires.
+
+\section{Méthode retenue : apprentissage par préférence de trajectoires}
+
+\subsection{Principe}
+
+La méthode finalement retenue consiste à apprendre une fonction de récompense \(r_\theta(s)\) telle que les trajectoires expertes obtiennent un retour supérieur aux trajectoires produites par l’agent courant.
+
+Pour une trajectoire \(\tau\), on définit le retour appris :
+\[
+R_\theta(\tau) = \frac{1}{T}\sum_{t=0}^{T} r_\theta(s_t)
+\]
+
+Nous utilisons ici une moyenne plutôt qu’une somme afin d’éviter que le modèle apprenne uniquement à favoriser les trajectoires longues. L’objectif est d’apprendre une notion de qualité moyenne des états visités, et non simplement de réintroduire indirectement la récompense native de \texttt{CartPole}.
+
+À chaque itération, nous disposons :
 \begin{itemize}
-    \item d’étudier la capacité de chaque modèle à capturer les comportements experts ;
-    \item d’observer les limites des modèles simples ;
-    \item d’évaluer l’intérêt des représentations plus complexes.
+    \item d’un ensemble de trajectoires expertes \(\tau_E\) ;
+    \item d’un ensemble de trajectoires générées par l’agent courant \(\tau_\pi\).
 \end{itemize}
 
-Les différentes récompenses apprises seront ensuite utilisées pour entraîner de nouveaux agents, dont les performances seront comparées à celles de l’expert initial.
+La fonction de récompense est alors entraînée pour satisfaire :
+\[
+R_\theta(\tau_E) > R_\theta(\tau_\pi)
+\]
 
+Ce principe est implémenté à l’aide d’une fonction de perte de type ranking loss :
+\[
+\mathcal{L}(\theta)
+=
+\max\left(0, m - \left(R_\theta(\tau_E)-R_\theta(\tau_\pi)\right)\right)
+\]
 
-\bibliographystyle{plain}
-\bibliography{references}
+où \(m\) est une marge positive. Cette marge impose que le retour appris d’une trajectoire experte soit supérieur à celui d’une trajectoire agent d’au moins \(m\).
 
+\subsection{Boucle d’apprentissage}
+
+La boucle complète est la suivante :
+\begin{enumerate}
+    \item charger les trajectoires expertes ;
+    \item initialiser un modèle de récompense \(r_\theta\) ;
+    \item collecter des trajectoires produites par l’agent courant ;
+    \item mettre à jour \(r_\theta\) afin que les trajectoires expertes soient préférées aux trajectoires agent ;
+    \item entraîner PPO avec la récompense apprise ;
+    \item collecter de nouvelles trajectoires agent ;
+    \item répéter le processus.
+\end{enumerate}
+
+Cette procédure est plus proche de l’esprit du papier étudié que la première approche discriminative, car la récompense n’est pas apprise une fois pour toutes à partir d’exemples fixes. Elle est progressivement ajustée en fonction des trajectoires produites par la politique courante.
+
+La vraie récompense de \texttt{CartPole} n’est pas utilisée pour entraîner la fonction de récompense. Elle est uniquement utilisée à la fin, comme métrique d’évaluation indépendante, afin de vérifier si l’agent entraîné avec la récompense apprise atteint effectivement une bonne performance dans l’environnement.
+
+\subsection{Architecture de la récompense}
+
+La fonction de récompense est représentée par un réseau de neurones simple :
+\[
+r_\theta(s) = f_\theta(s)
+\]
+
+où \(s = (x,\dot{x},\theta,\dot{\theta})\) est l’état de l’environnement. Le réseau prend en entrée les quatre variables de l’état et produit un score scalaire.
+
+Contrairement aux premières expériences, nous n’utilisons pas de fonction d’activation de type sigmoid ou tanh en sortie. En effet, une sortie bornée entre 0 et 1 peut introduire une récompense positive à chaque pas de temps, ce qui revient implicitement à favoriser la durée de l’épisode et donc à réintroduire une information proche de la récompense native de \texttt{CartPole}. Pour éviter cela, la sortie du modèle reste non bornée, puis elle est simplement tronquée lors de son utilisation par PPO afin de stabiliser l’apprentissage.
+
+\section{Résultats expérimentaux}
+
+\subsection{Résultats de la boucle par préférence de trajectoires}
+
+La méthode par préférence de trajectoires a permis d’obtenir une amélioration progressive de la politique entraînée avec la récompense apprise.
+
+Après dix itérations, les résultats obtenus sont les suivants :
+\begin{itemize}
+    \item longueur moyenne des épisodes : \(490.75 \pm 17.32\) ;
+    \item score moyen selon la récompense native de \texttt{CartPole}, utilisée uniquement pour analyse : \(484.30 \pm 30.31\).
+\end{itemize}
+
+Ces résultats montrent que la récompense apprise fournit un signal d’apprentissage suffisamment pertinent pour entraîner une politique proche de celle de l’expert.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcc}
+\toprule
+Méthode & Score moyen réel & Écart-type \\
+\midrule
+Récompense linéaire & 206.00 & 195.78 \\
+Récompense quadratique & 9.38 & 0.70 \\
+Réseau de neurones & 19.40 & 3.21 \\
+Reward par préférence de trajectoires & 484.30 & 30.31 \\
+\bottomrule
+\end{tabular}
+\caption{Comparaison des performances obtenues selon la méthode d’apprentissage de la récompense.}
+\end{table}
+
+L’écart entre les deux approches est net. L’apprentissage par préférence de trajectoires permet d’obtenir une politique très proche du niveau expert, tandis que les approches discriminatives état par état restent insuffisantes.
+
+\subsection{Réutilisation de la récompense finale}
+
+Afin de vérifier que la récompense finale apprise n’est pas uniquement utile dans la boucle itérative, nous avons ensuite sauvegardé le modèle de récompense final, puis entraîné un nouvel agent PPO depuis zéro en utilisant uniquement cette récompense rechargée.
+
+Le nouvel agent atteint :
+\[
+278.15 \pm 18.47
+\]
+
+sur la récompense native de \texttt{CartPole}, utilisée uniquement comme métrique d’évaluation.
+
+Ce résultat est inférieur au score obtenu dans la boucle itérative complète, mais il reste nettement supérieur à une politique aléatoire. Il montre donc que la récompense apprise est bien réutilisable, même si elle ne généralise pas parfaitement lorsqu’elle est utilisée seule pour entraîner un nouvel agent depuis zéro.
+
+Cette différence suggère que la boucle itérative apprend à la fois :
+\begin{itemize}
+    \item une fonction de récompense informative ;
+    \item une politique progressivement adaptée à cette récompense.
+\end{itemize}
+
+La récompense finale contient donc bien un signal utile, mais la co-adaptation progressive entre la politique et la récompense joue également un rôle important dans la performance finale.
+
+\subsection{Analyse}
+
+Les expériences mettent en évidence plusieurs points importants.
+
+Premièrement, une récompense capable de distinguer des états experts et non experts ne suffit pas nécessairement à entraîner une bonne politique. Cette observation est centrale, car elle montre que l’apprentissage d’une récompense ne peut pas être évalué uniquement comme un problème de classification.
+
+Deuxièmement, raisonner au niveau des trajectoires semble plus pertinent dans ce cadre. En imposant que les trajectoires expertes obtiennent un retour appris supérieur aux trajectoires de l’agent courant, la récompense apprise fournit un signal plus directement lié au comportement global.
+
+Enfin, la vraie récompense de \texttt{CartPole} n’a été utilisée que comme métrique finale d’évaluation. L’apprentissage de la récompense repose sur les démonstrations expertes et sur les trajectoires produites par l’agent courant, ce qui conserve la logique générale de l’Inverse Reinforcement Learning.
+
+\section{Conclusion}
+
+Ce projet avait pour objectif de mettre en œuvre une chaîne simplifiée d’Inverse Reinforcement Learning sur l’environnement \texttt{CartPole}. Nous avons d’abord entraîné un agent expert avec PPO, puis utilisé ses trajectoires comme démonstrations expertes.
+
+Une première approche consistant à apprendre une récompense discriminative état par état a permis d'obtenir des résultats contrastés. La récompense linéaire produit parfois des comportements relativement performants, mais avec une très forte variance. Les modèles quadratiques et neuronaux obtiennent quant à eux des performances nettement inférieures. Ces résultats suggèrent qu'une bonne capacité de discrimination entre états experts et non experts ne garantit pas l'obtention d'un signal d'apprentissage pertinent pour le Reinforcement Learning.
+
+La méthode finalement retenue repose sur une préférence de trajectoires. Le modèle de récompense est entraîné pour attribuer un retour plus élevé aux trajectoires expertes qu’aux trajectoires produites par l’agent courant. Cette approche a permis d’obtenir un agent atteignant un score moyen de \(484.30\), proche de la performance maximale de \texttt{CartPole-v1}.
+
+La réutilisation de la récompense finale pour entraîner un nouvel agent depuis zéro donne un score moyen de \(278.15\), montrant que la récompense apprise contient bien un signal utile, même si la boucle itérative complète reste plus performante.
+
+Ces résultats illustrent une idée importante de l’IRL : la qualité d’une récompense apprise ne se juge pas uniquement à sa capacité à reconnaître les démonstrations expertes, mais surtout à sa capacité à produire, après optimisation par RL, une politique performante.
+
+% \bibliographystyle{plain}
+% \bibliography{references}
+\printbibliography
 
 \end{document}
+
 
 

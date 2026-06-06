@@ -1,4 +1,4 @@
 model_name,mean_true_reward,std_true_reward
-linear_reward,9.15,0.9630680142129111
-quadratic_reward,34.6,23.569896054077116
-neural_reward,9.2,0.7483314773547881
+linear_reward,27.65,13.642855272999125
+quadratic_reward,8.95,0.7053367989832943
+neural_reward,9.375,0.9666307464590602
